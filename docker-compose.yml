@@ -37,7 +37,8 @@ services:
       - db
     networks:
       - ejabberd_net
-
+    links:
+      - "db"
   nginx:
     build:
       context: ./nginx
