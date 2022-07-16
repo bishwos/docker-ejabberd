@@ -30,7 +30,7 @@ log_rate_limit: 100
 
 certfiles:
   - /home/ejabberd/conf/server.pem
-
+  - /home/ejabberd/conf/privkey.pem
 ca_file: "/home/ejabberd/conf/cacert.pem"
 
 ## When using let's encrypt to generate certificates
