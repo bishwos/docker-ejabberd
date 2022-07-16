@@ -23,9 +23,9 @@ services:
     container_name: 'ejabberd'
     ports:
       - "5222:5222"
-      - "5280:80"
+      - "5280:5280"
       - "15674:15674"
-      - "5443:443"
+      - "5443:5443"
     volumes:
       - ./docker-ejabberd/ecs/conf:/home/ejabberd/conf
     environment:
