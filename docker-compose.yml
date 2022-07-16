@@ -17,7 +17,7 @@ services:
       - ejabberd_net
 
   ejabberd:
-    platform: linux/arm64/8
+#    platform: linux/arm64/8
     build:
       context: ./docker-ejabberd/ecs
     container_name: 'ejabberd'
