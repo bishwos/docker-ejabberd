@@ -1,0 +1,37 @@
+# pack-refs with: peeled fully-peeled sorted 
+fff957a434c0079918e5f97dc95b39f858522b7a refs/remotes/origin/dependabot/npm_and_yarn/async-2.6.4
+a09f2e5d2412e74dd8d51674d5fc8505f1ac1681 refs/remotes/origin/dependabot/npm_and_yarn/dns-packet-1.3.4
+07eeb4eacc88076fbdd13dfa2c6a0598bcafc28c refs/remotes/origin/dependabot/npm_and_yarn/elliptic-6.5.4
+dd7b1aa7adb6f6c50e8a2529e7a20fc55abfc6af refs/remotes/origin/dependabot/npm_and_yarn/follow-redirects-1.14.8
+07be127120660095b79503e7ca2dd1e7f3caacd6 refs/remotes/origin/dependabot/npm_and_yarn/hosted-git-info-2.8.9
+b84ea53df974578a6a699f9631c060c2d2e0fb58 refs/remotes/origin/dependabot/npm_and_yarn/lodash-4.17.21
+9f248cebe50438cebf3ea76a8b6528ef70aaebd0 refs/remotes/origin/dependabot/npm_and_yarn/minimist-1.2.6
+8b4dad1f9118057f352c4f996861a89b8affa7ec refs/remotes/origin/dependabot/npm_and_yarn/moment-2.29.2
+c1a462eb1bbe0500878dbffa6c9a368e01876332 refs/remotes/origin/dependabot/npm_and_yarn/node-sass-7.0.0
+3d551959be2294a36cf35026207c30c426eca95f refs/remotes/origin/dependabot/npm_and_yarn/ssri-6.0.2
+cd42219cb5288d5472cb432e77114eeae365fed3 refs/remotes/origin/dependabot/npm_and_yarn/url-parse-1.5.10
+8e995cd4f56d6d16af77855f6c12faf0f5db268f refs/remotes/origin/light-mode
+384f261b96307ba9673b795179ce545347c9ed37 refs/remotes/origin/master
+8a64d74783929f6c32b44c11d1914b74ad6015fb refs/remotes/origin/vue-cli-update
+dca5d758c057f788d7cfe916ff7282ea6794a416 refs/tags/0.1.0
+37c889f870796643c126dedb36e23d346d84c845 refs/tags/0.2.0
+67043476ae1a39094197ffa71c4385f7490bb4a7 refs/tags/0.3.0
+ce334533ec86a64fe70556d31baeb13478c3d894 refs/tags/0.4.0
+^316c7e7f24f5282052de84f7fe071e3df1c5a2d3
+787765d9e98e85cef26115e9e9ef31b176146eae refs/tags/0.4.1
+^c851be44b5ca8a54714482da32c2728020eb0a65
+a77295a3822cd97ee35f499c0eeed4794179bd83 refs/tags/0.5.0
+^b4ad710782a1d777aa02b82eef95b389c7754b91
+7ec861750254b2b650daa66b4e96fc61f494ddfa refs/tags/0.5.1
+^5512b05e7e0de85d4c82d55d8ca8c51f55066243
+d614e21a62e173945047d2c8e464b04b2ba0e9ce refs/tags/0.6.0
+^47d3c4790d06cc36b04d1dfe7495c135ba49e6d6
+c1fbc034e5b9023d9cf3ac57932d62dc3fbf520a refs/tags/0.7.0
+^6109fffc64f1ccd676d852f010e04b53c02a20d5
+702c2c2953e28364f66b37c61160c3c8ea9fc936 refs/tags/0.7.1
+^f0d17a3082775e99551425238f1b2a6dfc671aa1
+8db826bea670a02269ad6d2114f7669012d57286 refs/tags/0.8.0
+^ebf3260ae345244bdb2a42f0a3d7c9305ea41b6a
+dde2394862c67ae1949ddaec1aae36d7f33ddf6d refs/tags/0.8.1
+^cbe852cfe5f54cd7d40a7c64103417c8890d0f60
+adc6a32946df121322799c6368aa9b5ac8ee85b0 refs/tags/0.8.2

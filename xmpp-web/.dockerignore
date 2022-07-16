@@ -1,0 +1,7 @@
+.gitignore
+.github
+.dockerignore
+node_modules
+dist
+docs/ansible
+docs/*.png
