@@ -1,0 +1,57 @@
+version: "3.2"
+services:
+  db:
+    build:
+      context: ./postgres
+    container_name: 'postgres'
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/scripts:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: ejabberd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - ejabberd_net
+
+  ejabberd:
+    platform: linux/arm64/8
+    build:
+      context: ./docker-ejabberd/ecs
+    container_name: 'ejabberd'
+    ports:
+      - "5222:5222"
+      - "5280:5280"
+      - "15674:15674"
+      - "5443:5443"
+    volumes:
+      - ./docker-ejabberd/ecs/conf:/home/ejabberd/conf
+      - ./ejabberd/logs:/home/ejabberd/logs
+      - ./ejabberd/upload:/home/ejabberd/upload
+      - ./ejabberd/database:/home/ejabberd/database
+    environment:
+      - CTL_ON_CREATE=register admin localhost asd
+      - CTL_ON_START=stats registeredusers ;
+        check_password admin localhost asd ;
+        status
+    depends_on:
+      - db
+    networks:
+      - ejabberd_net
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: 'nginx'
+    volumes:
+      - ./converse.js:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    networks:
+      - ejabberd_net
+networks:
+  ejabberd_net:
+    driver: bridge
