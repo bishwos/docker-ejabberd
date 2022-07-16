@@ -28,9 +28,6 @@ services:
       - "5443:5443"
     volumes:
       - ./docker-ejabberd/ecs/conf:/home/ejabberd/conf
-      - ./ejabberd/logs:/home/ejabberd/logs
-      - ./ejabberd/upload:/home/ejabberd/upload
-      - ./ejabberd/database:/home/ejabberd/database
     environment:
       - CTL_ON_CREATE=register admin localhost asd
       - CTL_ON_START=stats registeredusers ;
