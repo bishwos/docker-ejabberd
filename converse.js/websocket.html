@@ -47,7 +47,13 @@
     For more information, please refer to <http://unlicense.org/>
     @licend
     */
+    let params = (new URL(document.location)).searchParams;
+    let jid = params.get('jid');
+    let password = params.get('password');
+
     converse.initialize({
+        jid: jid,
+        password: password,
         discover_connection_methods: false,
             muc_subscribe_to_rai: true,
             theme: 'dracula',
@@ -74,6 +80,7 @@
             muc_show_logs_before_join: true,
             whitelisted_plugins: ['converse-debug', 'converse-batched-probe'],
             blacklisted_plugins: [],
+            jid: 'durga@aayulogic.com'
             oauth_providers: {
                 'github': {
                     'client_id': '1338d9f7ff52b1309b29',
