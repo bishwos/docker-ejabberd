@@ -18,7 +18,7 @@ logger.addHandler(file_handler)
 
 config = ConfigParser()
 config.read('.env')
-logging.info('started')
+# logging.info('started')
 
 
 def do_auth(args):
@@ -29,7 +29,7 @@ def do_auth(args):
     request.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)')
     request.add_header('cookie', 'auth._token.local='+token)
     response = json.load(urlopen(request))
-    logging.info('username: {username}, server: {server}, token: {token}')
+    # logging.info('username: {username}, server: {server}, token: {token}')
     return str(response['user']['id']) == username or response['user']['email'] == username + '@' + server
 
 
