@@ -36,6 +36,8 @@ def do_auth(args):
     except HTTPError as err:
         if err.code == 401:
             return False
+    except BaseException:
+        logging.exception('Exception Occured', exc_info=True)
     return False
 
 
