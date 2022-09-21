@@ -67,6 +67,7 @@ RUN addgroup ejabberd -g 9000 \
     && mkdir -p /home/ejabberd/conf /home/ejabberd/database /home/ejabberd/logs /home/ejabberd/upload \
     && chown -R ejabberd:ejabberd /home/ejabberd
 
+RUN apk add python2
 # Install required dependencies
 RUN apk upgrade --update musl \
     && apk add \
