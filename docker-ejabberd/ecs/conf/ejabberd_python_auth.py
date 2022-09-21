@@ -41,7 +41,6 @@ formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
 logFileName = '/home/ejabberd/logs/logs.log'
 file_handler = logging.FileHandler(logFileName)
-file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
