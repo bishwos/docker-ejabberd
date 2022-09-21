@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 from configparser import ConfigParser
 import json
 import logging
-
+import random
 
 def is_file_in_use(file_path):
     path = Path(file_path)
@@ -29,17 +29,17 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
-logFileName = ''
-if not is_file_in_use('/home/ejabberd/logs/logs.log'):
-    logFileName = '/home/ejabberd/logs/logs.log'
-if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs2.log'):
-    logFileName = '/home/ejabberd/logs/logs2.log'
-if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs3.log'):
-    logFileName = '/home/ejabberd/logs/logs3.log'
-if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs4.log'):
-    logFileName = '/home/ejabberd/logs/logs4.log'
+# logFileName = ''
+# if not is_file_in_use('/home/ejabberd/logs/logs.log'):
+#     logFileName = '/home/ejabberd/logs/logs.log'
+# if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs2.log'):
+#     logFileName = '/home/ejabberd/logs/logs2.log'
+# if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs3.log'):
+#     logFileName = '/home/ejabberd/logs/logs3.log'
+# if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs4.log'):
+#     logFileName = '/home/ejabberd/logs/logs4.log'
 
-# logFileName = '/home/ejabberd/logs/logs.log'
+logFileName = '/home/ejabberd/logs/logs.log' + str(random.randint(0, 4))
 file_handler = logging.FileHandler(logFileName)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
