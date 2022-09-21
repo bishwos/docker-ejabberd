@@ -11,13 +11,14 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
-file_handler = logging.FileHandler('../logs/logs.log')
+file_handler = logging.FileHandler('logs.log')
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 config = ConfigParser()
 config.read('.env')
+logging.info('started')
 
 
 def do_auth(args):
@@ -30,6 +31,9 @@ def do_auth(args):
     response = json.load(urlopen(request))
     logging.info('username: {username}, server: {server}, token: {token}')
     return str(response['user']['id']) == username or response['user']['email'] == username + '@' + server
+
+
+# print(do_auth(['info', 'aayulogic.com', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYzNzg4MTA1LCJpYXQiOjE2NjM3NjY1MDUsImp0aSI6IjVjYmNlNzEyNjk3NDRkODFiM2RkZDE1YmM5ZDMxOGYxIiwidXNlcl9pZCI6MX0.IjbettQ5XIG1HZyzehjMuJoRML3c3kQPeQyPcherj3r7DLvgMdESuIO25Gsi30whsMd8FwnUiXdl5uo5Lwco-DP8n6zA-luVkqucbYftfutT9xbi1pkQ8jUcL9mJAHiGDFpYnCMshwfTzp3Sw-t2YBuOIMwgudhSXGenzRC2H-lm98zFLt5CTVFGRqN9GPcAFcHcOQPA_pQC8HoYx0imRlu7rGxcHqZxF0XRmBYBJ2seCA0rkP4YWV75-8Aqv3H4yKrWkyOnPQX3VP2MYJw7eUNAadNC1eNRAGn8TIyhZzAgR_7M-06RlhaZi6gsI7Y8faAEGnIBaPQ8LxmTk5A43w']))
 
 
 def is_user(args):
@@ -65,6 +69,6 @@ def to_ejabberd(result):
     sys.stdout.flush()
 
 
-# if __name__ == "__main__":
-#     loop()
+if __name__ == "__main__":
+    loop()
 
