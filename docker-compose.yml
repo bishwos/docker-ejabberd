@@ -29,9 +29,9 @@ services:
     volumes:
       - ./docker-ejabberd/ecs/conf:/home/ejabberd/conf
     environment:
-      - CTL_ON_CREATE=register admin localhost asd
+      - CTL_ON_CREATE=register admin aayulogic asd
       - CTL_ON_START=stats registeredusers ;
-        check_password admin localhost asd ;
+        check_password admin aayulogic asd ;
         status
     depends_on:
       - db
