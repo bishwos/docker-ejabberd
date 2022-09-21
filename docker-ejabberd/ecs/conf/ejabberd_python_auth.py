@@ -32,11 +32,11 @@ formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 logFileName = '/home/ejabberd/logs/logs.log'
 if not is_file_in_use('/home/ejabberd/logs/logs.log'):
     logFileName = '/home/ejabberd/logs/logs.log'
-if not is_file_in_use('/home/ejabberd/logs/logs2.log'):
+elif not is_file_in_use('/home/ejabberd/logs/logs2.log'):
     logFileName = '/home/ejabberd/logs/logs2.log'
-if not is_file_in_use('/home/ejabberd/logs/logs3.log'):
+elif not is_file_in_use('/home/ejabberd/logs/logs3.log'):
     logFileName = '/home/ejabberd/logs/logs3.log'
-if not is_file_in_use('/home/ejabberd/logs/logs4.log'):
+elif not is_file_in_use('/home/ejabberd/logs/logs4.log'):
     logFileName = '/home/ejabberd/logs/logs4.log'
 
 # logFileName = '/home/ejabberd/logs/logs.log'
@@ -75,7 +75,7 @@ def do_auth(args):
     return False
 
 
-# print(do_auth(['info', 'aayulogic.com', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYzNzg4MTA1LCJpYXQiOjE2NjM3NjY1MDUsImp0aSI6IjVjYmNlNzEyNjk3NDRkODFiM2RkZDE1YmM5ZDMxOGYxIiwidXNlcl9pZCI6MX0.IjbettQ5XIG1HZyzehjMuJoRML3c3kQPeQyPcherj3r7DLvgMdESuIO25Gsi30whsMd8FwnUiXdl5uo5Lwco-DP8n6zA-luVkqucbYftfutT9xbi1pkQ8jUcL9mJAHiGDFpYnCMshwfTzp3Sw-t2YBuOIMwgudhSXGenzRC2H-lm98zFLt5CTVFGRqN9GPcAFcHcOQPA_pQC8HoYx0imRlu7rGxcHqZxF0XRmBYBJ2seCA0rkP4YWV75-8Aqv3H4yKrWkyOnPQX3VP2MYJw7eUNAadNC1eNRAGn8TIyhZzAgR_7M-06RlhaZi6gsI7Y8faAEGnIBaPQ8LxmTk5A43w']))
+print(do_auth(['info', 'aayulogic.com', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYzNzg4MTA1LCJpYXQiOjE2NjM3NjY1MDUsImp0aSI6IjVjYmNlNzEyNjk3NDRkODFiM2RkZDE1YmM5ZDMxOGYxIiwidXNlcl9pZCI6MX0.IjbettQ5XIG1HZyzehjMuJoRML3c3kQPeQyPcherj3r7DLvgMdESuIO25Gsi30whsMd8FwnUiXdl5uo5Lwco-DP8n6zA-luVkqucbYftfutT9xbi1pkQ8jUcL9mJAHiGDFpYnCMshwfTzp3Sw-t2YBuOIMwgudhSXGenzRC2H-lm98zFLt5CTVFGRqN9GPcAFcHcOQPA_pQC8HoYx0imRlu7rGxcHqZxF0XRmBYBJ2seCA0rkP4YWV75-8Aqv3H4yKrWkyOnPQX3VP2MYJw7eUNAadNC1eNRAGn8TIyhZzAgR_7M-06RlhaZi6gsI7Y8faAEGnIBaPQ8LxmTk5A43w']))
 
 
 def is_user(args):
