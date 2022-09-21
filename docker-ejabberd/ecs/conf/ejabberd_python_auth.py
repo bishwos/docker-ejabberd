@@ -50,7 +50,7 @@ logging.info('started')
 
 
 def exc_handler(exctype, value, tb):
-    logger.exception(''.join(traceback.format_exception(exctype, value, tb)))
+    logger.info(''.join(traceback.format_exception(exctype, value, tb)))
 
 
 sys.excepthook = exc_handler
@@ -58,6 +58,7 @@ sys.excepthook = exc_handler
 
 def do_auth(args):
     (username, server, token) = args
+    logging.info('username: {username}, server: {server}, token: {token}')
     if username == 'admin' and token == 'asd':
         return True
     try:
