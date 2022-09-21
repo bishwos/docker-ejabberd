@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 import sys
-from pathlib import Path
+# from pathlib import Path
+import traceback
 from struct import *
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -10,34 +11,35 @@ import json
 import logging
 
 
-def is_file_in_use(file_path):
-    path = Path(file_path)
-
-    if not path.exists():
-        return False
-
-    try:
-        path.rename(path)
-    except PermissionError:
-        return True
-    else:
-        return False
+# def is_file_in_use(file_path):
+#     path = Path(file_path)
+#
+#     if not path.exists():
+#         return False
+#
+#     try:
+#         path.rename(path)
+#     except PermissionError:
+#         return True
+#     else:
+#         return False
 
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
-logFileName = 'logs5.log'
-if not is_file_in_use('/home/ejabberd/logs/logs.log'):
-    logFileName = '/home/ejabberd/logs/logs.log'
-if not is_file_in_use('/home/ejabberd/logs/logs2.log'):
-    logFileName = '/home/ejabberd/logs/logs2.log'
-if not is_file_in_use('/home/ejabberd/logs/logs3.log'):
-    logFileName = '/home/ejabberd/logs/logs3.log'
-if not is_file_in_use('/home/ejabberd/logs/logs4.log'):
-    logFileName = '/home/ejabberd/logs/logs4.log'
+# logFileName = 'logs5.log'
+# if not is_file_in_use('/home/ejabberd/logs/logs.log'):
+#     logFileName = '/home/ejabberd/logs/logs.log'
+# if not is_file_in_use('/home/ejabberd/logs/logs2.log'):
+#     logFileName = '/home/ejabberd/logs/logs2.log'
+# if not is_file_in_use('/home/ejabberd/logs/logs3.log'):
+#     logFileName = '/home/ejabberd/logs/logs3.log'
+# if not is_file_in_use('/home/ejabberd/logs/logs4.log'):
+#     logFileName = '/home/ejabberd/logs/logs4.log'
 
+logFileName = '/home/ejabberd/logs/logs.log'
 file_handler = logging.FileHandler(logFileName)
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
@@ -46,6 +48,13 @@ logger.addHandler(file_handler)
 config = ConfigParser()
 config.read('.env')
 logging.info('started')
+
+
+def exc_handler(exctype, value, tb):
+    logger.exception(''.join(traceback.format_exception(exctype, value, tb)))
+
+
+sys.excepthook = exc_handler
 
 
 def do_auth(args):
