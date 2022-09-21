@@ -18,7 +18,7 @@ hosts:
 #
 host_config:
   aayulogic.com:
-    auth_method: [external]
+    auth_method: [internal]
     extauth_program: /home/ejabberd/conf/ejabberd_python_auth.py
     extauth_instances: 3
     auth_use_cache: false
