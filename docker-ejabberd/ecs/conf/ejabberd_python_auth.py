@@ -45,7 +45,7 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 config = ConfigParser()
-config.read('.env')
+config.read('/home/ejabberd/conf/.env')
 logging.info('started')
 
 
@@ -58,7 +58,7 @@ sys.excepthook = exc_handler
 
 def do_auth(args):
     (username, server, token) = args
-    logging.info('username: {username}, server: {server}, token: {token}')
+    logging.info(f'username: {username}, server: {server}, token: {token}')
     if username == 'admin' and token == 'asd':
         return True
     try:
