@@ -5,6 +5,20 @@ from struct import *
 from urllib.request import Request, urlopen
 from configparser import ConfigParser
 import json
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setLevel(logging.DEBUG)
+stdout_handler.setFormatter(formatter)
+
+file_handler = logging.FileHandler('logs.log')
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 config = ConfigParser()
 config.read('env')
@@ -18,6 +32,7 @@ def do_auth(args):
     request.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)')
     request.add_header('cookie', 'auth._token.local='+token)
     response = json.load(urlopen(request))
+    logger.info(response)
     return str(response['user']['id']) == username or response['user']['email'] == username + '@' + server
 
 
