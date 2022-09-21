@@ -29,14 +29,14 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
-logFileName = '/home/ejabberd/logs/logs.log'
+logFileName = ''
 if not is_file_in_use('/home/ejabberd/logs/logs.log'):
     logFileName = '/home/ejabberd/logs/logs.log'
-elif not is_file_in_use('/home/ejabberd/logs/logs2.log'):
+if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs2.log'):
     logFileName = '/home/ejabberd/logs/logs2.log'
-elif not is_file_in_use('/home/ejabberd/logs/logs3.log'):
+if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs3.log'):
     logFileName = '/home/ejabberd/logs/logs3.log'
-elif not is_file_in_use('/home/ejabberd/logs/logs4.log'):
+if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs4.log'):
     logFileName = '/home/ejabberd/logs/logs4.log'
 
 # logFileName = '/home/ejabberd/logs/logs.log'
