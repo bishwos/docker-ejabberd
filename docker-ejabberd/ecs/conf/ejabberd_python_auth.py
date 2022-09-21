@@ -69,6 +69,6 @@ def to_ejabberd(result):
     sys.stdout.flush()
 
 
-if __name__ == "__main__":
-    loop()
-
+# if __name__ == "__main__":
+#     loop()
+#
