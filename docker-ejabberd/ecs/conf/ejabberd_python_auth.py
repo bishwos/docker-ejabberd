@@ -14,7 +14,7 @@ def is_file_in_use(file_path):
     path = Path(file_path)
 
     if not path.exists():
-        raise FileNotFoundError
+        return False
 
     try:
         path.rename(path)
@@ -46,7 +46,6 @@ logger.addHandler(file_handler)
 config = ConfigParser()
 config.read('.env')
 logging.info('started')
-
 
 
 def do_auth(args):
