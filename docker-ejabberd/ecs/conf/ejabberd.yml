@@ -14,12 +14,14 @@
 ### Refer to http://en.wikipedia.org/wiki/YAML for the brief description.
 ###
 hosts:
-  - localhost
+  - aayulogic.com
 #
 host_config:
-  localhost:
-    auth_method: [ jwt, sql ]
-    jwt_key: /home/ejabberd/conf/secret.jwk
+  aayulogic.com:
+    auth_method: [ external ]
+    extauth_program: /home/ejabberd/conf/ejabberd_python_auth.py
+    extauth_instances: 3
+    auth_use_cache: false
 
 
 loglevel: 4
@@ -48,7 +50,7 @@ listen:
     max_stanza_size: 262144
     shaper: c2s_shaper
     access: c2s
-    starttls_required: true
+    starttls_required: false
   -
     port: 5269
     ip: "::"
