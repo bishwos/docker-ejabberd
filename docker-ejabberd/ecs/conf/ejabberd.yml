@@ -13,15 +13,14 @@
 ### *******************************************************
 ### Refer to http://en.wikipedia.org/wiki/YAML for the brief description.
 ###
-hosts:
-  - aayulogic.com
+hosts: [aayulogic.com]
 #
-host_config:
-  aayulogic.com:
-    auth_method: [internal]
-    extauth_program: /home/ejabberd/conf/ejabberd_python_auth.py
-    extauth_instances: 3
-    auth_use_cache: false
+#host_config:
+#  aayulogic.com:
+auth_method: [internal]
+#extauth_program: /home/ejabberd/conf/ejabberd_python_auth.py
+#extauth_instances: 3
+#auth_use_cache: false
 
 
 loglevel: 4
