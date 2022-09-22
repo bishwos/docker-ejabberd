@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import sys
-from pathlib import Path
 import traceback
 from struct import *
 from urllib.error import HTTPError
@@ -11,83 +10,34 @@ import json
 import logging
 import random
 
-def is_file_in_use(file_path):
-    path = Path(file_path)
-
-    if not path.exists():
-        return False
-
-    try:
-        path.rename(path)
-    except PermissionError:
-        return True
-    else:
-        return False
+LOG_FILE = '/home/ejabberd/logs/logs.log'
+ENV_FILE = '/home/ejabberd/conf/.env'
+ADMIN_USER = 'admin'
+ADMIN_PASSWORD = 'asd'
 
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+# This module get input through stdinput from_ejabberd().
+# Switches to appropriate method described in the data.
+# Outputs to_ejabberd(). This is done in a perpetual loop().
+def main():
+    global config
+    configure_logger()
+    config: ConfigParser = ConfigParser()
 
-# logFileName = ''
-# if not is_file_in_use('/home/ejabberd/logs/logs.log'):
-#     logFileName = '/home/ejabberd/logs/logs.log'
-# if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs2.log'):
-#     logFileName = '/home/ejabberd/logs/logs2.log'
-# if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs3.log'):
-#     logFileName = '/home/ejabberd/logs/logs3.log'
-# if logFileName == '' and not is_file_in_use('/home/ejabberd/logs/logs4.log'):
-#     logFileName = '/home/ejabberd/logs/logs4.log'
-
-logFileName = '/home/ejabberd/logs/logs.log' + str(random.randint(0, 4))
-file_handler = logging.FileHandler(logFileName)
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
-
-config = ConfigParser()
-config.read('/home/ejabberd/conf/.env')
-logging.info('started')
-
-
-def exc_handler(exctype, value, tb):
-    logger.info(''.join(traceback.format_exception(exctype, value, tb)))
-
-
-sys.excepthook = exc_handler
-
-
-def do_auth(args):
-    (username, server, token) = args
-    logging.info(f'username: {username}, server: {server}, token: {token}')
-    if username == 'admin' and token == 'asd':
-        return True
-    try:
-        request = Request(config.get(server, 'auth_url'))
-        request.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)')
-        request.add_header('cookie', 'auth._token.local='+token)
-        response = json.load(urlopen(request))
-        logging.info('username: {username}, server: {server}, token: {token}')
-        return str(response['user']['id']) == username or response['user']['email'] == username + '@' + server
-    except HTTPError as err:
-        if err.code == 401:
-            return False
-    except BaseException:
-        logging.debug('Exception Occurred', exc_info=True)
-    return False
-
-
-# print(do_auth(['info', 'aayulogic.com', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYzNzg4MTA1LCJpYXQiOjE2NjM3NjY1MDUsImp0aSI6IjVjYmNlNzEyNjk3NDRkODFiM2RkZDE1YmM5ZDMxOGYxIiwidXNlcl9pZCI6MX0.IjbettQ5XIG1HZyzehjMuJoRML3c3kQPeQyPcherj3r7DLvgMdESuIO25Gsi30whsMd8FwnUiXdl5uo5Lwco-DP8n6zA-luVkqucbYftfutT9xbi1pkQ8jUcL9mJAHiGDFpYnCMshwfTzp3Sw-t2YBuOIMwgudhSXGenzRC2H-lm98zFLt5CTVFGRqN9GPcAFcHcOQPA_pQC8HoYx0imRlu7rGxcHqZxF0XRmBYBJ2seCA0rkP4YWV75-8Aqv3H4yKrWkyOnPQX3VP2MYJw7eUNAadNC1eNRAGn8TIyhZzAgR_7M-06RlhaZi6gsI7Y8faAEGnIBaPQ8LxmTk5A43w']))
-
-
-def is_user(args):
-    return True
+    config.read('%s' % ENV_FILE)
+    sys.excepthook = exc_handler
+    logging.info('Started')
+    # TODO: Print contents of .env file. Fail if .env doesn't exists
+    loop()
+    # To test code, comment loop and uncomment line below
+    # print(do_auth(['info', 'aayulogic.com', '']))
 
 
 def loop():
     while True:
         switcher = {
             "auth": do_auth,
-            "isuser": is_user,
+            "isuser": lambda: True,
             "setpass": lambda: True,
             "tryregister": lambda: False,
             "removeuser": lambda: False,
@@ -98,12 +48,65 @@ def loop():
         to_ejabberd(switcher.get(data[0], lambda: False)(data[1:]))
 
 
+def configure_logger():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+    # Ejabberd initiates multiple processes at the same time.
+    # This caused a race condition when checking if log file is in use.
+    log_file_name = LOG_FILE + str(random.randint(0, 10))
+    file_handler = logging.FileHandler(log_file_name)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    return logger
+
+
+def do_auth(args):
+    (username, server, token) = args
+    logging.info(f'username: {username}, server: {server}, token: {token}')
+    if username == ADMIN_USER and token == ADMIN_PASSWORD:
+        return True
+    # noinspection PyBroadException
+    try:
+        try:
+            request = Request(config.get(server, 'auth_url'))
+            request.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)')
+            request.add_header('cookie', 'auth._token.local=' + token)
+            response = json.load(urlopen(request))
+            return str(response['user']['id']) == username or response['user']['email'] == username + '@' + server
+        except HTTPError as err:
+            if err.code == 401:
+                return False
+            raise err
+    except BaseException:
+        logging.debug('username: {username}, server: {server}')
+        logging.debug('Exception Occurred', exc_info=True)
+    return False
+
+
+def exc_handler(exctype, value, tb):
+    logging.info(''.join(traceback.format_exception(exctype, value, tb)))
+
+
+# read from stdin: AABBBBBBBBB.....
+# A: 2 bytes of length data (a short in network byte order)
+# B: a string of length found in A that contains operation in plain text operation are as follows:
+# auth:User:Server:Password (check if a username/password pair is correct)
+# isuser:User:Server (check if it’s a valid user)
+# setpass:User:Server:Password (set user’s password)
+# tryregister:User:Server:Password (try to register an account)
+# removeuser:User:Server (remove this account)
+# removeuser3:User:Server:Password (remove this account if the password is correct)
 def from_ejabberd():
     input_length = sys.stdin.buffer.read(2)
+    # > Big-endian, h short
     (size,) = unpack('>h', input_length)
     return sys.stdin.read(size).split(':')
 
 
+# write to stdout: AABB
+# A: the number 2 (coded as a short, which is bytes length of following result)
+# B: the result code (coded as a short), should be 1 for success/valid, or 0 for failure/invalid
 def to_ejabberd(result):
     if result:
         sys.stdout.write('\x00\x02\x00\x01')
@@ -113,5 +116,4 @@ def to_ejabberd(result):
 
 
 if __name__ == "__main__":
-    loop()
-
+    main()
